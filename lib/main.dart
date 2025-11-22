@@ -14,7 +14,6 @@ class Bolden extends StatelessWidget {
       title: 'Bolden',
       //ThemeData for Dark/Light Themes
       theme: ThemeData( 
-        useMaterial3: true,
       ),
       darkTheme: ThemeData.dark().copyWith(
 
