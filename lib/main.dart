@@ -1,20 +1,25 @@
+import 'package:bolden/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(const Bolden());
 }
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+class Bolden extends StatelessWidget {
+  const Bolden({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
+    return MaterialApp(
+      title: 'Bolden',
+      //ThemeData for Dark/Light Themes
+      theme: ThemeData( 
+        useMaterial3: true,
       ),
+      darkTheme: ThemeData.dark().copyWith(
+
+      ),
+      home: const HomeScreen(),
     );
   }
 }
