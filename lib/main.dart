@@ -19,6 +19,7 @@ class Bolden extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Bolden',
+      debugShowCheckedModeBanner: false,
       //ThemeData for Dark/Light Themes
       theme: ThemeData( 
       ),
