@@ -1,6 +1,7 @@
 
 import 'package:bolden/models/country.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class CountryCard extends StatelessWidget{
   final Country country;
@@ -26,12 +27,13 @@ class CountryCard extends StatelessWidget{
           children: <Widget>[
             //Flags from API
             Expanded(
-              child: Image.network(
+              child: SvgPicture.network(
                 country.flag,
                 fit: BoxFit.cover,
                 width: double.infinity,
-                errorBuilder: (context, error, stackTrace) =>
-                  const Center(child: Icon(Icons.public, size:40)),
+                placeholderBuilder: (context) => const Center(
+                  child: CircularProgressIndicator(),
+                ),
               ),
             ),
             //Text
