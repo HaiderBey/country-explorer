@@ -24,7 +24,9 @@ class CountryService {
         );
       }
     } catch (e) {
-      throw Exception('Network error: Could not fetch data. ($e)');
+      // ignore: avoid_print
+      print ('Error: $e');
+      throw Exception('Network error: Please check your internet connexion.');
     }
   }
 }
