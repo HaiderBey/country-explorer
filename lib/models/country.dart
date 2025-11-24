@@ -30,40 +30,39 @@ class Country {
   });
 
   factory Country.fromJson(Map<String, dynamic> json){
-    return switch (json){
-      {
-      'name': String name,
-      'capital': String capital,
-      'region': String region,
-      'subregion': String subregion,
-      'borders': List<dynamic> borders,
-      'population': int population,
-      'timezones': List<dynamic> timezones,
-      'alpha2Code': String alpha2Code,
-      'alpha3Code': String alpha3Code,
-      'callingCodes': List<dynamic> callingCodes,
-      'demonym': String demonym,
-      'flag': String flag,
-      'currencies': List<dynamic> currencies,
-      'languages': List<dynamic> languages,
-      } => Country(
-        name: name,
-        capital: capital,
-        region: region,
-        subregion: subregion,
-        borders: borders.cast<String>(), //Converted from List<dynamic> to List<String>
-        population: population,
-        timezones: timezones.cast<String>(), 
-        codes: [alpha2Code, alpha3Code],
-        callingCodes: callingCodes.cast<String>(),
-        demonym: demonym,
-        flag: flag,
-        //Currencies and languages are contained in objects, therefore they need mapping before converstion to string
-        currencies: currencies.map((c) => Currency.fromJson(c)).toList(),
-        languages: languages.map((l) => l['name'] as String).toList(), // I only took the name field under languages
-      ),
-      _ => throw const FormatException('Failed to load country.')
-    };
+
+    final name = json['name'] as String? ?? 'Unknown Country';
+    final capital = json['capital'] as String? ?? 'N/A';
+    final region = json['region'] as String? ?? 'Unknown Region';
+    final subregion = json['subregion'] as String? ?? 'N/A';
+    final demonym = json['demonym'] as String? ?? 'N/A';
+    final flag = json['flag'] as String? ?? ''; 
+    final population = json['population'] as int? ?? 0;
+    
+    final timezonesList = json['timezones'] as List<dynamic>? ?? [];
+    final bordersList = json['borders'] as List<dynamic>? ?? [];
+    final callingCodesList = json['callingCodes'] as List<dynamic>? ?? [];
+    final currenciesList = json['currencies'] as List<dynamic>? ?? [];
+    final languagesList = json['languages'] as List<dynamic>? ?? [];
+
+    final alpha2Code = json['alpha2Code'] as String? ?? '';
+    final alpha3Code = json['alpha3Code'] as String? ?? '';
+
+return Country(
+      name: name,
+      capital: capital,
+      region: region,
+      subregion: subregion,
+      borders: bordersList.cast<String>(), 
+      population: population,
+      timezones: timezonesList.cast<String>(), 
+      codes: [alpha2Code, alpha3Code],
+      callingCodes: callingCodesList.cast<String>(),
+      demonym: demonym,
+      flag: flag,
+      currencies: currenciesList.map((c) => Currency.fromJson(c as Map<String, dynamic>)).toList(),
+      languages: languagesList.map((l) => (l as Map<String, dynamic>)['name'] as String? ?? 'N/A').toList(), 
+    );
   }
 }
 
