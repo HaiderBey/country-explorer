@@ -34,7 +34,13 @@ class CountryProvider extends ChangeNotifier {
     } finally {
       notifyListeners();
     }
-
   }
 
+  Future<Country> fetchCountryDetails(String code) async {
+    try {
+      return await _service.fetchCountryByCode(code);
+    } catch (e) {
+      throw Exception('Failed to load details for $code: $e');
+    }
+  }
 }

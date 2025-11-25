@@ -22,7 +22,7 @@ class CountryCard extends StatelessWidget{
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => DetailScreen(country: country),
+              builder: (context) => DetailScreen(countryCode: country.codes[1]),
             ),
           );
         },
