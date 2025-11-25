@@ -42,23 +42,9 @@ class _DetailScreenState extends State<DetailScreen> {
           }
 
           if (snapshot.hasError) {
-            return Center(
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(Icons.error_outline, color: Colors.red, size: 40),
-                    const SizedBox(height: 10),
-                    Text(
-                      'Error loading details: ${snapshot.error.toString().replaceFirst('Exception: ', '')}',
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(color: Colors.red),
-                    ),
-                  ],
-                ),
-              ),
-            );
+            final errorCountry = Country.error();
+            debugPrint('Detail Screen Fetch Error: ${snapshot.error}');
+            return _buildDetailedContent(context, errorCountry);
           }
       
           if (snapshot.hasData){

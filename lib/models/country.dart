@@ -48,22 +48,43 @@ class Country {
     final alpha2Code = json['alpha2Code'] as String? ?? '';
     final alpha3Code = json['alpha3Code'] as String? ?? '';
 
-return Country(
-      name: name,
-      capital: capital,
-      region: region,
-      subregion: subregion,
-      borders: bordersList.cast<String>(), 
-      population: population,
-      timezones: timezonesList.cast<String>(), 
-      codes: [alpha2Code, alpha3Code],
-      callingCodes: callingCodesList.cast<String>(),
-      demonym: demonym,
-      flag: flag,
-      currencies: currenciesList.map((c) => Currency.fromJson(c as Map<String, dynamic>)).toList(),
-      languages: languagesList.map((l) => (l as Map<String, dynamic>)['name'] as String? ?? 'N/A').toList(), 
+    return Country(
+          name: name,
+          capital: capital,
+          region: region,
+          subregion: subregion,
+          borders: bordersList.cast<String>(), 
+          population: population,
+          timezones: timezonesList.cast<String>(), 
+          codes: [alpha2Code, alpha3Code],
+          callingCodes: callingCodesList.cast<String>(),
+          demonym: demonym,
+          flag: flag,
+          currencies: currenciesList.map((c) => Currency.fromJson(c as Map<String, dynamic>)).toList(),
+          languages: languagesList.map((l) => (l as Map<String, dynamic>)['name'] as String? ?? 'N/A').toList(), 
     );
   }
+
+  factory Country.error() {
+    return Country(
+      name: 'Holy 404 Empire',
+      capital: '127.0.0.1 (Localhost)',
+      region: 'The Void',
+      subregion: 'The Back-end Abyss',
+      timezones: ['UTC-NaN'],
+      codes: ['404', 'ERR'],
+      callingCodes: ['190'],
+      demonym: 'The Frustrated',
+      flag: 'https://placehold.co/600x400/CCCCCC/000000?text=404+Flag+Not+Found',
+      population: 1,
+      borders: ['Null', 'Undefined', 'StackOverflow'],
+      currencies: [
+        Currency(code: 'ELC', name: 'Electricity', symbol: '⚡')
+      ],
+      languages: ['Binary']
+    );
+  }
+
 }
 
 class Currency {
