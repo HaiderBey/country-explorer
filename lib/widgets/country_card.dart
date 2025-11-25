@@ -1,5 +1,6 @@
 
 import 'package:bolden/models/country.dart';
+import 'package:bolden/screens/detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -18,9 +19,12 @@ class CountryCard extends StatelessWidget{
       elevation: 4,
       child: InkWell(
         onTap:() {
-          //Placeholder: Should redirect to country information page
-          // ignore: avoid_print
-          print('Nzelt 3al ${country.name} :)');
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => DetailScreen(country: country),
+            ),
+          );
         },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
