@@ -74,6 +74,39 @@ class HomeScreen extends StatelessWidget {
           style: TextStyle(fontWeight: FontWeight.bold)
         ),
         centerTitle: true,
+        actions: [
+          Consumer<CountryProvider>(
+            builder: (context, provider, child) {
+              return PopupMenuButton<SortCriteria>(
+                icon: const Icon(Icons.sort),
+                onSelected: (SortCriteria result) {
+                  provider.setSortCriteria(result);
+                },
+                itemBuilder: (BuildContext context) => <PopupMenuEntry<SortCriteria>>[
+                  const PopupMenuItem<SortCriteria>(
+                    value: SortCriteria.nameAsc,
+                    child: Text('Name (A-Z)'),
+                  ),                  
+
+                  const PopupMenuItem<SortCriteria>(
+                    value: SortCriteria.nameDesc,
+                    child: Text('Name (Z-A)'),
+                  ), 
+
+                  const PopupMenuItem<SortCriteria>(
+                    value: SortCriteria.populationAsc,
+                    child: Text('Population (A-Z)'),
+                  ),
+
+                  const PopupMenuItem<SortCriteria>(
+                    value: SortCriteria.populationDesc,
+                    child: Text('Population (Z-A)'),
+                  ),
+                ],
+              );
+            }
+          )
+        ],
       ),
       body: Column(
         children: [

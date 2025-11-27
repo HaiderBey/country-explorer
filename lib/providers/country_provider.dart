@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 
 enum Status { loading, loaded, error}
 
+enum SortCriteria {nameAsc, nameDesc, populationAsc, populationDesc}
+
 class CountryProvider extends ChangeNotifier {
   final CountryService _service = CountryService();
 
@@ -13,11 +15,14 @@ class CountryProvider extends ChangeNotifier {
   String? _errorMessage;
 
   String _searchQuery = '';
+  
+  SortCriteria _sortCriteria = SortCriteria.nameAsc;
 
   List<Country> get countries => _filteredCountries;
   Status get status => _status;
   String? get errorMessage => _errorMessage;
   String get searchQuery => _searchQuery;
+  SortCriteria get sortCriteria => _sortCriteria;
 
   CountryProvider() {
     fetchCountries();
@@ -27,6 +32,13 @@ class CountryProvider extends ChangeNotifier {
     _searchQuery = query.toLowerCase();
     _applyFilters();
     notifyListeners();
+  }
+
+  void setSortCriteria(SortCriteria criteria) {
+    _sortCriteria = criteria;
+    _applyFilters();
+    notifyListeners();
+
   }
 
   void _applyFilters(){
@@ -40,6 +52,22 @@ class CountryProvider extends ChangeNotifier {
                country.region.toLowerCase().contains(query) ||
                country.subregion.toLowerCase().contains(query);
       }).toList();
+    }
+
+    switch(_sortCriteria) {
+      case SortCriteria.nameAsc:
+        _filteredCountries.sort((a,b) => a.name.compareTo(b.name));
+        break;
+      case SortCriteria.nameDesc:
+        _filteredCountries.sort((a,b) => b.name.compareTo(a.name));
+        break;
+      case SortCriteria.populationAsc:
+        _filteredCountries.sort((a,b) => b.population.compareTo(a.population));
+        break;
+      case SortCriteria.populationDesc:
+        _filteredCountries.sort((a,b) => a.population.compareTo(b.population));
+        break;
+      
     }
     // I'll add Filtering system later
   }
