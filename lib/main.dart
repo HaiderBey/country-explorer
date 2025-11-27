@@ -46,6 +46,13 @@ class Bolden extends StatelessWidget {
       visualDensity: VisualDensity.adaptivePlatformDensity,
       scaffoldBackgroundColor: const Color(0xFF121212),
       cardColor: const Color(0xFF1E1E1E), 
+      colorScheme: const ColorScheme.dark(
+        primary: Color(0xFF3AB4F2),
+        onPrimary: Colors.white,
+        secondary: Color(0xFF3AB4F2),
+        surface: Color(0xFF1E1E1E),
+        onSurface: Colors.white,
+      ),
       appBarTheme: AppBarTheme(
         elevation: 0,
         backgroundColor: const Color(0xFF1E1E1E),
@@ -53,7 +60,7 @@ class Bolden extends StatelessWidget {
       ),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         backgroundColor: Color(0xFF1E1E1E),
-        selectedItemColor: Colors.blueAccent,
+        selectedItemColor: Color(0xFF3AB4F2),
         unselectedItemColor: Colors.white70,
       ),
       inputDecorationTheme: InputDecorationTheme(

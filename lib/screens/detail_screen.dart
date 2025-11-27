@@ -161,7 +161,7 @@ class _DetailScreenState extends State<DetailScreen> {
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
         children: [
-          Icon(icon, color: Theme.of(context).primaryColor),
+          Icon(icon, color: Theme.of(context).colorScheme.primary),
           const SizedBox(width: 10),
           Expanded(
             child: Column(

@@ -122,8 +122,12 @@ class _MainNavigatorState extends State<MainNavigator> {
               ),
             ],
             currentIndex: _selectedIndex,
-            selectedItemColor: Theme.of(context).primaryColor,
-            unselectedItemColor: Colors.grey,
+            selectedItemColor: Theme.of(context).brightness == Brightness.dark
+              ? Color(0xFF3AB4F2)
+              : Theme.of(context).primaryColor,
+            unselectedItemColor: Theme.of(context).brightness == Brightness.dark
+              ? Colors.white70
+              : Colors.grey,
             onTap: _onItemTapped,
           ),
         );
