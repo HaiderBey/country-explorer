@@ -1,5 +1,6 @@
 import 'package:bolden/providers/country_provider.dart';
 import 'package:bolden/widgets/country_card.dart';
+import 'package:bolden/widgets/search_bar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -36,6 +37,12 @@ class HomeScreen extends StatelessWidget {
       );
     }
 
+    if(provider.countries.isEmpty) {
+      return Center(
+        child: Text('No countries found matching "${provider.searchQuery}".'),
+      );
+    }
+
     if (provider.countries.isNotEmpty) {
       return GridView.builder(
         padding: const EdgeInsets.all(10.0),
@@ -68,13 +75,21 @@ class HomeScreen extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: Consumer<CountryProvider>(
-        builder: (context, provider, child) {
-          return RefreshIndicator(
-            onRefresh: provider.fetchCountries,
-            child: _buildContent(context, provider),
-          );
-        },
+      body: Column(
+        children: [
+          const SearchBarWidget(),
+
+          Expanded(
+            child: Consumer<CountryProvider>(
+                builder: (context, provider, child) {
+                  return RefreshIndicator(
+                    onRefresh: provider.fetchCountries,
+                    child: _buildContent(context, provider),
+                  );
+                },
+            ),
+          ),
+        ],
       ),
       // Bottom Navigation to be added later
     );

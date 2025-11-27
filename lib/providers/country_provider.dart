@@ -8,15 +8,40 @@ class CountryProvider extends ChangeNotifier {
   final CountryService _service = CountryService();
 
   List<Country> _countries = [];
+  List<Country> _filteredCountries = [];
   Status _status = Status.loading;
   String? _errorMessage;
 
-  List<Country> get countries => _countries;
+  String _searchQuery = '';
+
+  List<Country> get countries => _filteredCountries;
   Status get status => _status;
   String? get errorMessage => _errorMessage;
+  String get searchQuery => _searchQuery;
 
   CountryProvider() {
     fetchCountries();
+  }
+
+  void setSearchQuery(String query){
+    _searchQuery = query.toLowerCase();
+    _applyFilters();
+    notifyListeners();
+  }
+
+  void _applyFilters(){
+    if (_searchQuery.isEmpty) {
+      _filteredCountries = List.from(_countries);
+    } else {
+      _filteredCountries = _countries.where((country) {
+        final query = _searchQuery;
+        return country.name.toLowerCase().contains(query) ||
+               country.capital.toLowerCase().contains(query) ||
+               country.region.toLowerCase().contains(query) ||
+               country.subregion.toLowerCase().contains(query);
+      }).toList();
+    }
+    // I'll add Filtering system later
   }
 
   Future<void> fetchCountries() async {
@@ -26,12 +51,20 @@ class CountryProvider extends ChangeNotifier {
 
     try {
       _countries = await _service.fetchAllCountries();
-      _status = Status.loaded;
+      
+      if (_countries.isEmpty) {
+        _status = Status.error;
+        _errorMessage = "Oops! You seem to have been accidentally shifted to a country-less planet! Refresh to return to Earth.";
+      } else {
+        _status = Status.loaded;
+      }
+
     } catch (e) {
       _status = Status.error;
       _errorMessage = e.toString().replaceFirst('Exception: ', '');
       _countries = [];
     } finally {
+      _applyFilters();
       notifyListeners();
     }
   }
