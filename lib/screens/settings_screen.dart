@@ -9,13 +9,11 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<ThemeProvider>(
       builder: (context, themeProvider, child) {
-        // Check if the current theme is Dark mode
         final isDarkMode = themeProvider.themeMode == ThemeMode.dark;
 
         return ListView(
           padding: const EdgeInsets.all(16.0),
           children: <Widget>[
-            // Theme Switching Tile
             Card(
               elevation: 2,
               margin: const EdgeInsets.only(bottom: 8.0),
@@ -47,10 +45,9 @@ class SettingsScreen extends StatelessWidget {
             
             const SizedBox(height: 20),
             
-            // Placeholder for other settings
             const Center(
               child: Text(
-                'Other settings options will go here.',
+                "Change Application Theme (yes, that's it... for now).",
                 style: TextStyle(color: Colors.grey),
               ),
             ),
