@@ -1,14 +1,15 @@
 import 'package:bolden/providers/country_provider.dart';
-import 'package:bolden/screens/home_screen.dart';
+import 'package:bolden/screens/main_navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => CountryProvider(),
+    MultiProvider(
+      providers: [ChangeNotifierProvider(create: (_) => CountryProvider()),
+      ],
       child: const Bolden(),
-    )
+    ),
   );
 }
 
@@ -22,11 +23,15 @@ class Bolden extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       //ThemeData for Dark/Light Themes
       theme: ThemeData( 
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+        appBarTheme: const AppBarTheme(
+          elevation: 0,
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
+        ),
       ),
-      darkTheme: ThemeData.dark().copyWith(
-
-      ),
-      home: const HomeScreen(),
+      home: const MainNavigator(),
     );
   }
 }

@@ -67,64 +67,22 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context){
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Bolden',
-          style: TextStyle(fontWeight: FontWeight.bold)
-        ),
-        centerTitle: true,
-        actions: [
-          Consumer<CountryProvider>(
-            builder: (context, provider, child) {
-              return PopupMenuButton<SortCriteria>(
-                icon: const Icon(Icons.sort),
-                onSelected: (SortCriteria result) {
-                  provider.setSortCriteria(result);
-                },
-                itemBuilder: (BuildContext context) => <PopupMenuEntry<SortCriteria>>[
-                  const PopupMenuItem<SortCriteria>(
-                    value: SortCriteria.nameAsc,
-                    child: Text('Name (A-Z)'),
-                  ),                  
+    // Content is now just a Column, to be placed inside MainNavigator's Scaffold
+    return Column(
+      children: [
+        const SearchBarWidget(),
 
-                  const PopupMenuItem<SortCriteria>(
-                    value: SortCriteria.nameDesc,
-                    child: Text('Name (Z-A)'),
-                  ), 
-
-                  const PopupMenuItem<SortCriteria>(
-                    value: SortCriteria.populationAsc,
-                    child: Text('Population (A-Z)'),
-                  ),
-
-                  const PopupMenuItem<SortCriteria>(
-                    value: SortCriteria.populationDesc,
-                    child: Text('Population (Z-A)'),
-                  ),
-                ],
-              );
-            }
-          )
-        ],
-      ),
-      body: Column(
-        children: [
-          const SearchBarWidget(),
-
-          Expanded(
-            child: Consumer<CountryProvider>(
-                builder: (context, provider, child) {
-                  return RefreshIndicator(
-                    onRefresh: provider.fetchCountries,
-                    child: _buildContent(context, provider),
-                  );
-                },
-            ),
+        Expanded(
+          child: Consumer<CountryProvider>(
+              builder: (context, provider, child) {
+                return RefreshIndicator(
+                  onRefresh: provider.fetchCountries,
+                  child: _buildContent(context, provider),
+                );
+              },
           ),
-        ],
-      ),
-      // Bottom Navigation to be added later
+        ),
+      ],
     );
   }
 }
