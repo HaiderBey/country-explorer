@@ -79,7 +79,7 @@ class Country {
       population: 1,
       borders: ['Null', 'Undefined', 'StackOverflow'],
       currencies: [
-        Currency(code: 'ELC', name: 'Electricity', symbol: '⚡')
+        Currency(code: 'ELC', name: 'Electricity', symbol: '')
       ],
       languages: ['Binary']
     );
