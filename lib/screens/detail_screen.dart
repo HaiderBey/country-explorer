@@ -23,9 +23,24 @@ class _DetailScreenState extends State<DetailScreen> {
   @override
   void initState() {
     super.initState();
-    final provider = Provider.of<CountryProvider>(context, listen: false);
 
-    _countryFuture = provider.fetchCountryDetails(widget.countryCode);
+    //I am using setState because I'm re-using the same Detail Screen widget instance instead of pushing a new one
+    _fetchData(); 
+  }
+  
+  void _fetchData() {
+    final provider = Provider.of<CountryProvider>(context, listen: false);
+    setState(() {
+      _countryFuture = provider.fetchCountryDetails(widget.countryCode);
+    });
+  }
+
+  @override
+  void didUpdateWidget(DetailScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.countryCode != oldWidget.countryCode) {
+      _fetchData();
+    }
   }
 
   @override
@@ -88,6 +103,12 @@ class _DetailScreenState extends State<DetailScreen> {
               fontWeight: FontWeight.bold,
             ),
           ),
+          Text(
+            '(${country.demonym})',
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+              color: Theme.of(context).colorScheme.onSurface.withAlpha(179),
+            ),
+          ),
           const Divider(),
 
           _buildInfoRow(
@@ -99,7 +120,10 @@ class _DetailScreenState extends State<DetailScreen> {
           _buildInfoRow(
             context,
             'Population',
-            country.population.toString(),
+            country.population.toString().replaceAllMapped(
+              RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), 
+              (Match m) => '${m[1]},'
+            ),
             Icons.people
           ),
           _buildInfoRow(
@@ -184,6 +208,8 @@ class _DetailScreenState extends State<DetailScreen> {
   }
 
   Widget _buildDetailList(BuildContext context, String title, List<String> items) {
+    bool isBorderList = title == 'Borders';
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -197,7 +223,25 @@ class _DetailScreenState extends State<DetailScreen> {
         Wrap(
           spacing: 8.0,
           runSpacing: 4.0,
-          children: items.map((item) => Chip(label: Text(item))).toList(),
+          children: items.map((item) {
+            if (isBorderList && item != 'None') {
+              return ActionChip(
+                label: Text(item),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DetailScreen(countryCode: item),
+                    ),
+                  );
+                },
+                backgroundColor: Theme.of(context).colorScheme.primary.withAlpha(25),
+                labelStyle: TextStyle(color: Theme.of(context).colorScheme.primary),
+              );
+            } else {
+              return Chip(label: Text(item));
+            }
+          }).toList(),
         ),
       ],
     );
