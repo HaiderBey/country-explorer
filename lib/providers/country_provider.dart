@@ -69,7 +69,16 @@ class CountryProvider extends ChangeNotifier {
         break;
       
     }
-    // I'll add Filtering system later
+  }
+
+  //Simple cleaning (Removes item from the country list)
+  List<Country> _applyDataTransformation(List<Country> rawList) {
+    
+    final List<Country> transformedList = rawList
+        .where((c) => !c.codes.contains('ISR'))
+        .toList();
+
+    return transformedList;
   }
 
   Future<void> fetchCountries() async {
@@ -79,6 +88,8 @@ class CountryProvider extends ChangeNotifier {
 
     try {
       _countries = await _service.fetchAllCountries();
+
+      _countries = _applyDataTransformation(_countries);
       
       if (_countries.isEmpty) {
         _status = Status.error;
@@ -98,10 +109,12 @@ class CountryProvider extends ChangeNotifier {
   }
 
   Future<Country> fetchCountryDetails(String code) async {
+    final String realCode = (code == 'ISR') ? 'PSE' : code;
+
     try {
-      return await _service.fetchCountryByCode(code);
+      return await _service.fetchCountryByCode(realCode);
     } catch (e) {
-      throw Exception('Failed to load details for $code: $e');
+      throw Exception('Failed to load details for $realCode: $e');
     }
   }
 }
