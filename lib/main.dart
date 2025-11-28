@@ -1,4 +1,5 @@
 import 'package:bolden/providers/country_provider.dart';
+import 'package:bolden/providers/favorites_provider.dart';
 import 'package:bolden/providers/theme_provider.dart';
 import 'package:bolden/screens/main_navigator.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,7 @@ void main() {
       providers: [
         ChangeNotifierProvider(create: (_) => CountryProvider()),
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
+        ChangeNotifierProvider(create: (_) => FavoritesProvider()),
       ],
       child: const Bolden(),
     ),

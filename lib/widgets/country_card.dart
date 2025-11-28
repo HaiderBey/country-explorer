@@ -1,8 +1,10 @@
 
 import 'package:bolden/models/country.dart';
+import 'package:bolden/providers/favorites_provider.dart';
 import 'package:bolden/screens/detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 
 class CountryCard extends StatelessWidget{
   final Country country;
@@ -14,6 +16,8 @@ class CountryCard extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+    final countryCode = country.codes[1];
+
     return Card(
       clipBehavior: Clip.antiAlias,
       elevation: 4,
@@ -22,22 +26,49 @@ class CountryCard extends StatelessWidget{
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => DetailScreen(countryCode: country.codes[1]),
+              builder: (context) => DetailScreen(countryCode: countryCode),
             ),
           );
         },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            //Flags from API
+            //Flags
             Expanded(
-              child: SvgPicture.network(
-                country.flag,
-                fit: BoxFit.cover,
-                width: double.infinity,
-                placeholderBuilder: (context) => const Center(
-                  child: CircularProgressIndicator(),
-                ),
+              child: Stack(
+                children: [ 
+                  SvgPicture.network(
+                    country.flag,
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                    placeholderBuilder: (context) => const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  ),
+                  Positioned(
+                    top: 8,
+                    right: 8,
+                    child: Consumer<FavoritesProvider>(
+                      builder: (context, favoritesProvider, child) {
+                        final isFav = favoritesProvider.isFavorite(countryCode);
+                        return GestureDetector(
+                          onTap: () {
+                            favoritesProvider.toggleFavorite(countryCode);
+                          },
+                          child: CircleAvatar(
+                            backgroundColor: Colors.black54,
+                            radius: 18,
+                            child: Icon(
+                              isFav ? Icons.favorite: Icons.favorite_border,
+                              color: isFav? Colors.red : Colors.white,
+                              size: 20,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ],
               ),
             ),
             //Text

@@ -4,6 +4,7 @@ import 'package:bolden/providers/country_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
+import 'package:bolden/providers/favorites_provider.dart';
 
 class DetailScreen extends StatefulWidget {
   final String countryCode;
@@ -48,6 +49,22 @@ class _DetailScreenState extends State<DetailScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Country Details'),
+        actions: [
+          Consumer<FavoritesProvider>(
+            builder: (context, favoritesProvider, child) {
+              final isFav = favoritesProvider.isFavorite(widget.countryCode);
+              return IconButton(
+                icon: Icon(
+                  isFav? Icons.favorite : Icons.favorite_border,
+                  color: isFav? Colors.red : Theme.of(context).colorScheme.onSurface,
+                ),
+                onPressed: () {
+                  favoritesProvider.toggleFavorite(widget.countryCode);
+                },
+              );
+            },
+          ),
+        ],
       ),
       body: FutureBuilder<Country>(
         future: _countryFuture,

@@ -84,7 +84,6 @@ class Country {
       languages: ['Binary']
     );
   }
-
 }
 
 class Currency {
