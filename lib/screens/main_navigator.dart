@@ -60,10 +60,10 @@ class _MainNavigatorState extends State<MainNavigator> {
         );
         break;
       case 1:
-        title = 'Favorite Countries';
+        title = 'Explore Countries';
         break;
       case 2:
-        title = 'Settings';
+        title = 'Favorite Countries';
         break;
       case 3:
         title = 'Country Quiz';

@@ -10,13 +10,6 @@ class FavoritesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Favorites',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        centerTitle: true,
-      ),
       body: Consumer2<CountryProvider, FavoritesProvider>(
         builder: (context, countryProvider, favoritesProvider, child) {
           if (countryProvider.status == Status.loading || favoritesProvider.isLoading) {
