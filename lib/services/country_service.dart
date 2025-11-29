@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:bolden/models/country.dart';
 import 'package:http/http.dart' as http;
 
@@ -25,7 +26,7 @@ class CountryService {
       }
     } catch (e) {
       // ignore: avoid_print
-      print ('Error: $e');
+      log('Error: $e');
       throw Exception('Network error: Please check your internet connexion.');
     }
   }
