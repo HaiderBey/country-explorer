@@ -18,13 +18,13 @@ A **Flutter** cross-platform mobile application built for exploring the world's 
 ## ⚙️ Tech Stack & Dependencies
 
 
-| Category | Technology / Package | Purpose |
-| :--- | :--- | :--- |
-| **Framework** | **Flutter (Dart)** | Cross-platform UI development (Android, iOS). |
-| **State Management** | **Provider** | State management using the `ChangeNotifier` pattern. |
-| **Data Fetching** | **`http`** | Handling asynchronous network requests to the Country API. |
-| **Persistence** | **`shared_preferences`** | Local storage for user preferences (Favorites, Theme Mode). |
-| **Assets** | **`flutter_svg`** | Efficiently rendering country flag SVGs. |
+    bolden/
+    ├── lib/
+    │   ├── models/            # Data Models (Country, Currency)
+    │   ├── services/          # API Services (CountryService)
+    │   ├── providers/         # Application State/Business Logic (CountryProvider, FavoritesProvider, ThemeProvider)
+    │   ├── screens/           # Main application pages (HomeScreen, DetailScreen, SettingsScreen)
+    │   └── widgets/           # Reusable UI components (CountryCard, SearchBarWidget)
 
 ---
 
