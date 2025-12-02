@@ -6,7 +6,7 @@ class MapScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: Text('Map View Screen (Placeholder for geographic view)'),
+      child: Text('Map View Screen (Coming Soon...)'),
     );
   }
 }

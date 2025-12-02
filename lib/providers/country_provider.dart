@@ -100,7 +100,7 @@ class CountryProvider extends ChangeNotifier {
 
     } catch (e) {
       _status = Status.error;
-      _errorMessage = e.toString().replaceFirst('Exception: ', '');
+      _errorMessage = "Network error: Please check your internet connexion.";
       _countries = [];
     } finally {
       _applyFilters();
@@ -111,10 +111,8 @@ class CountryProvider extends ChangeNotifier {
   Future<Country> fetchCountryDetails(String code) async {
     final String realCode = (code == 'ISR') ? 'PSE' : code;
 
-    try {
-      return await _service.fetchCountryByCode(realCode);
-    } catch (e) {
-      throw Exception('Failed to load details for $realCode: $e');
-    }
+    return await _service.fetchCountryByCode(realCode);
   }
-}
+} 
+
+//Question: Is it better to handle errors on the business logic layer or the service? (example empty response (_countries.isEmpty))

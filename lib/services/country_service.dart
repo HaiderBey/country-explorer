@@ -20,28 +20,28 @@ class CountryService {
             .map((json) => Country.fromJson(json))
             .toList();
       } else {
-        throw Exception(
-          'Failed to load countries. Server responded with status: ${response.statusCode}'
-        );
+        throw Exception('Failed to load countries. Server responded with status: ${response.statusCode}');
       }
     } catch (e) {
-      // ignore: avoid_print
-      log('Error: $e');
+      log('Network Error: $e');
       throw Exception('Network error: Please check your internet connexion.');
     }
   }
 
   Future<Country> fetchCountryByCode(String code) async {
     final url = Uri.parse('$_baseUrl/alpha/$code');
+    try {
+      final response = await http.get(url);
 
-    final response = await http.get(url);
-
-    if (response.statusCode == 200) {
-      final Map<String, dynamic> json = jsonDecode(response.body);
-      return Country.fromJson(json);
-    } else {
-      throw Exception('Failed to load country details for code: $code. Status: ${response.statusCode}');
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> json = jsonDecode(response.body);
+        return Country.fromJson(json);
+      } else {
+        throw Exception('Failed to load country details for code: $code. Status: ${response.statusCode}');
+      }
+    } catch (e) {
+      log('Network Error: $e');
+      throw Exception('Network Error: Please check your internet connexion.');
     }
   }
-
 }

@@ -4,11 +4,11 @@ class Country {
   final String region;
   final String subregion;
   final List<String> timezones;
-  final List<String> codes; // TUN / TN..
-  final List<String> callingCodes; // It's a list in API
-  final String demonym; // ex: Tunisian
+  final List<String> codes;
+  final List<String> callingCodes; 
+  final String demonym; 
   final String flag;
-  final List<Currency> currencies; // ex Switzerland
+  final List<Currency> currencies; 
   final List<String> languages;
   final List<String> borders;
   final int population;
@@ -31,12 +31,12 @@ class Country {
 
   factory Country.fromJson(Map<String, dynamic> json){
 
-    final name = json['name'] as String? ?? 'Unknown Country';
+    final name = json['name'] as String? ?? 'N/A';
     final capital = json['capital'] as String? ?? 'N/A';
-    final region = json['region'] as String? ?? 'Unknown Region';
+    final region = json['region'] as String? ?? 'N/A';
     final subregion = json['subregion'] as String? ?? 'N/A';
     final demonym = json['demonym'] as String? ?? 'N/A';
-    final flag = json['flag'] as String? ?? ''; 
+    final flag = json['flag'] as String? ?? 'https://placehold.co/600x400/CCCCCC/000000?text=404+Flag+Not+Found'; 
     final population = json['population'] as int? ?? 0;
     
     final timezonesList = json['timezones'] as List<dynamic>? ?? [];

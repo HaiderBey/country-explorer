@@ -67,7 +67,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context){
-    // Content is now just a Column, to be placed inside MainNavigator's Scaffold
     return Column(
       children: [
         const SearchBarWidget(),
