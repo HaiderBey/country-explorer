@@ -22,7 +22,7 @@ class HomeScreen extends StatelessWidget {
               const Icon(Icons.error_outline, color: Colors.red, size: 40),
               const SizedBox (height: 10),
               Text(
-                'Failed to load countries: ${provider.errorMessage}',
+                '${provider.errorMessage}',
                 textAlign: TextAlign.center,
                 style: const TextStyle(color: Colors.red),
               ),

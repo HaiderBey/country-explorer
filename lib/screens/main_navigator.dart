@@ -1,6 +1,6 @@
 import 'package:bolden/providers/country_provider.dart';
 import 'package:bolden/screens/favorites_screen.dart';
-import 'package:bolden/screens/game_screen.dart';
+import 'package:bolden/mini_game/game_screen.dart';
 import 'package:bolden/screens/home_screen.dart';
 import 'package:bolden/screens/map_screen.dart';
 import 'package:bolden/screens/settings_screen.dart';

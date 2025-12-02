@@ -189,7 +189,7 @@ class _DetailScreenState extends State<DetailScreen> {
 
           //Placeholder for Map Integration (I plan to add it later :) )
           const SizedBox(height: 40),
-          const Text("أنا خريطة!")
+          const Icon(Icons.map_sharp),
         ],
       ),
     );

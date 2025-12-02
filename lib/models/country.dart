@@ -75,7 +75,7 @@ class Country {
       codes: ['404', 'ERR'],
       callingCodes: ['190'],
       demonym: 'The Frustrated',
-      flag: 'https://placehold.co/600x400/CCCCCC/000000?text=404+Flag+Not+Found',
+      flag: '',
       population: 1,
       borders: ['Null', 'Undefined', 'StackOverflow'],
       currencies: [
